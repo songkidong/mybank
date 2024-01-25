@@ -22,6 +22,11 @@ repositories {
 }
 
 dependencies {
+ 	// Tomcat에서 JSP를 처리하기 위해 필요한 라이브러리
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	// JSP를 개발할 때 사용되는 태그 라이브러리인 JSTL을 제공하는 라이브러리
+	implementation 'javax.servlet:jstl'
+	// implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
