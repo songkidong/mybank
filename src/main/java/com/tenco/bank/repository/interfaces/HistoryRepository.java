@@ -3,10 +3,11 @@ package com.tenco.bank.repository.interfaces;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.tenco.bank.repository.entity.CustomHistoryEntity;
 import com.tenco.bank.repository.entity.History;
 
-//interface + xml 연결
 @Mapper
 public interface HistoryRepository {
 
@@ -20,4 +21,7 @@ public interface HistoryRepository {
 	public History findById(Integer id);
 
 	public List<History> findAll();
+
+	// 파라미터 갯수가 2개 이상이면 반드시!! 파람 어노테이션을 명시 해야 한다.
+	public List<CustomHistoryEntity> findByIdHistoryType(@Param("type") String type, @Param("id") Integer id);
 }
