@@ -21,6 +21,6 @@ public interface UserRepository {
 	public List<User> findAll();
 	
 	// 사용자 username 으로 존재 여부 확인
-	public User findByUsername(User user);
+	public User findByUsername(String username);
 	public User findByUsernameAndPassword(User user);
 }

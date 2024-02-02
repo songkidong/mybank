@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+	// 암호화 
+	implementation 'org.springframework.security:spring-security-crypto'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	// implementation 'javax.servlet:jstl' 사용 안됨
     implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
