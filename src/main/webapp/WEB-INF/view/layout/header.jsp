@@ -52,16 +52,30 @@
 			<div class="col-sm-4">
 				<h2>About Me</h2>
 				<h5>Photo of me:</h5>
-				<div class="m--profile"></div>
+				<!-- 로그인 여부에 따라 코드 추가하기 -->
+				<c:choose>
+					<c:when test="${principal != null}">
+						<img class="m--profile" alt="" src="${principal.setupUserImage()}">
+					</c:when>
+					<c:otherwise>
+						<div class="m--profile"></div>
+					</c:otherwise>
+				</c:choose>
+
 				<p>중단기 심화 - 은행 관리 시스템 예제</p>
 				<h3>Some Links</h3>
 				<p>Lorem ipsum dolor sit ame.</p>
 				<ul class="nav nav-pills flex-column">
-					<li class="nav-item"><a class="nav-link" href="/account/save">계좌 생성</a></li>
-					<li class="nav-item"><a class="nav-link" href="/account/list">계좌 목록</a></li>
-					<li class="nav-item"><a class="nav-link" href="/account/withdraw">출금</a></li>
-					<li class="nav-item"><a class="nav-link" href="/account/deposit">입금</a></li>
-					<li class="nav-item"><a class="nav-link" href="/account/transfer">이체</a></li>
+					<li class="nav-item"><a class="nav-link" href="/account/save">계좌
+							생성</a></li>
+					<li class="nav-item"><a class="nav-link" href="/account/list">계좌
+							목록</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/account/withdraw">출금</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/account/deposit">입금</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/account/transfer">이체</a></li>
 				</ul>
 				<hr class="d-sm-none">
 			</div>
