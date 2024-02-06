@@ -18,6 +18,16 @@
 				id="pwd" value="1234">
 		</div>
 		<button type="submit" class="btn btn-primary">로그인</button>
+		<a
+			href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=22b5d7d5af96960c53924dbcef20a6e3&redirect_uri=http://localhost:80/user/kakao-callback">
+			<img alt="" src="/images/kakao_login_small.png" width="75"
+			height="38">
+		</a>
+		<!-- <a
+			href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=oLRZrhIDwIY3zzTgv5BB&state=test&redirect_uri=http://localhost:80/user/naver-callback">
+			<img alt="" src="/images/btnG_축약형.png" width="75"
+			height="38">
+		</a> -->
 	</form>
 </div>
 </br>
