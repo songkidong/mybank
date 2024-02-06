@@ -21,6 +21,8 @@ public class User {
 	private String originFileName;
 	private String uploadFileName;
 	
+	private String userEmail;
+	
 	// 사용자가 회원가입시, 이미지 넣는 경우, 이미지 안넣는 경우
 	public String setupUserImage() {
 		return uploadFileName == null ?

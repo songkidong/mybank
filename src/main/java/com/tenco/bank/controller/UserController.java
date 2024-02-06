@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,9 @@ public class UserController {
 
 	@Autowired
 	private HttpSession httpSession;
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
 
 	/**
 	 * 회원가입 페이지 요청
@@ -148,4 +153,20 @@ public class UserController {
 		httpSession.invalidate();
 		return "redirect:/user/sign-in";
 	}
+	
+	// 이메일 전송 기능
+	@GetMapping("/test/email")
+	public void test1() {
+		System.out.println("실행됨?111");
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo("ehdzl5464@gmail.com");
+		message.setSubject("제목입니다");
+		message.setText("내용입니다");
+		message.setFrom("test@gmail.com");
+		message.setReplyTo("test@gmail.com");
+		javaMailSender.send(message);
+		System.out.println("실행됨?");
+	}
+	
+	
 }

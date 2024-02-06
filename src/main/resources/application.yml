@@ -20,7 +20,25 @@ spring:
     url: jdbc:mysql://localhost:3306/mybank?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: asd1234  
+    password: asd1234
+
+# 이메일 전송
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ehdzl5464@gmail.com
+    password: rwjzrqbpgzwcqnff
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    auth-code-expiration-millins: 180000  
   
   # h2:
   #  console:
