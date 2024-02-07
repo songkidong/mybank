@@ -23,11 +23,11 @@
 			<img alt="" src="/images/kakao_login_small.png" width="75"
 			height="38">
 		</a>
-		<!-- <a
+<a
 			href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=oLRZrhIDwIY3zzTgv5BB&state=test&redirect_uri=http://localhost:80/user/naver-callback">
 			<img alt="" src="/images/btnG_축약형.png" width="75"
 			height="38">
-		</a> -->
+		</a>
 	</form>
 </div>
 </br>

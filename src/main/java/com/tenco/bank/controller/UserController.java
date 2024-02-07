@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.bank.dto.KakaoProfile;
+import com.tenco.bank.dto.NaverProfile;
 import com.tenco.bank.dto.OAuthToken;
 import com.tenco.bank.dto.SignInFormDto;
 import com.tenco.bank.dto.SignUpFormDto;
@@ -181,6 +182,7 @@ public class UserController {
 		System.out.println("실행됨?");
 	}
 
+	// 카카오 로그인 기능
 	// http://localhost:80/user/kakao-callback?code="xxxxx"
 	@GetMapping("/kakao-callback")
 	public String kakaoCallback(@RequestParam String code) {
@@ -223,7 +225,7 @@ public class UserController {
 		KakaoProfile kakaoProfile = response2.getBody();
 
 		// 최초 사용자 판단 - 사용자 username 존재 여부 확인
-		SignUpFormDto dto = SignUpFormDto.builder().username("OAuth_" + kakaoProfile.getProperties().getNickname())
+		SignUpFormDto dto = SignUpFormDto.builder().username("OAuth_Kakao" + kakaoProfile.getProperties().getNickname())
 				.fullname("Kakao").password("asd1234").build();
 
 		User oldUser = userService.readUserByUserName(dto.getUsername());
@@ -241,6 +243,57 @@ public class UserController {
 
 		return "redirect:/account/list";
 
+	}
+
+	// 네이버 로그인
+	@GetMapping("/naver-callback")
+	public String naverCallback(@RequestParam String code, @RequestParam String state) {
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		String url = "https://nid.naver.com/oauth2.0/token?" + "grant_type=authorization_code"
+				+ "&client_id=oLRZrhIDwIY3zzTgv5BB" + "&client_secret=5d0pwFpezV" + "&code=" + code + "&state=" + state;
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+
+		// 헤더 + 바디
+		HttpEntity<MultiValueMap<String, String>> reqMsg = new HttpEntity<>(httpHeaders);
+		// 토큰 요청
+		ResponseEntity<OAuthToken> response = restTemplate.exchange(url, HttpMethod.POST, reqMsg, OAuthToken.class);
+
+		RestTemplate restTemplate2 = new RestTemplate();
+
+		// 헤더
+		HttpHeaders headers2 = new HttpHeaders();
+		headers2.add("Authorization", "Bearer " + response.getBody().getAccessToken());
+
+		// 헤더 + 바디
+		HttpEntity<MultiValueMap<String, String>> reqMsg2 = new HttpEntity<>(headers2);
+
+		// 사용자 정보 요청
+		ResponseEntity<NaverProfile> response2 = restTemplate2.exchange("https://openapi.naver.com/v1/nid/me",
+				HttpMethod.POST, reqMsg2, NaverProfile.class);
+
+		NaverProfile naverProfile = response2.getBody();
+
+		// 최초 사용자 판단 - 사용자 username 존재 여부 확인
+		SignUpFormDto dto2 = SignUpFormDto.builder().username("OAuth_Naver" + naverProfile.getResponse().getName())
+				.fullname("Naver").password("asd1234").build();
+
+		User oldUser2 = userService.readUserByUserName(dto2.getUsername());
+		// null이 담겨있는 상황
+		if (oldUser2 == null) {
+			userService.createUser(dto2);
+			oldUser2 = new User();
+			oldUser2.setUsername(dto2.getUsername());
+			oldUser2.setFullname(dto2.getFullname());
+		}
+		oldUser2.setPassword(null);
+
+		// 로그인 처리
+		httpSession.setAttribute(Define.PRINCIPAL, oldUser2);
+
+		return "redirect:/account/list";
 	}
 
 }
